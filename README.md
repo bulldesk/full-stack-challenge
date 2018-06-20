@@ -10,7 +10,7 @@ A aplicação deve ler os cabeçalhos do arquivo e dar uma lista de opções com
 
 Não precisa necessariamente ser um SPA, mas devem ser utilizados [Single File Component do Vue](https://vuejs.org/v2/guide/single-file-components.html).
 
-O desafiante deve mostrar bom conhecimento no conceito de filas, eventos e também de toda a parte do front.
+O desafiante deve mostrar bom conhecimento em PHP, no conceito de filas, eventos e também de toda a parte do front.
 
 ## Tecnologias/features que devem ser utilizadas
 
@@ -39,3 +39,4 @@ Caso tenha alguma dúvida, abra uma issue.
 * https://laravel.com/docs/5.6/notifications
 * https://laravel.com/docs/5.6/broadcasting
 * https://vuejs.org/v2/guide/single-file-components.html
+* https://github.com/gabrielkoerich/guidelines
