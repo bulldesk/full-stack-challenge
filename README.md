@@ -14,11 +14,11 @@ O desafiante deve mostrar bom conhecimento no conceito de filas (utilizando driv
 
 ## Tecnologias que devem ser utilizadas
 
-– [Vue.js](https://vuejs.org)
-– [Laravel 5.6](https://laravel.com/docs/5.6/)
-– [Laravel Mix] (https://laravel.com/docs/5.6/mix)
-- [Laravel Echo (com Pusher)] (https://laravel.com/docs/5.6/broadcasting#installing-laravel-echo)
-- [Filas com Beanstalkd ou Redis](https://laravel.com/docs/5.6/queues)
+* [Vue.js](https://vuejs.org)
+* [Laravel 5.6](https://laravel.com/docs/5.6/)
+* [Laravel Mix](https://laravel.com/docs/5.6/mix)
+* [Broadcasting](https://laravel.com/docs/5.6/broadcasting) + [Laravel Echo (com Pusher)](https://laravel.com/docs/5.6/broadcasting#installing-laravel-echo)
+* [Filas com Beanstalkd ou Redis](https://laravel.com/docs/5.6/queues)
 
 ## Como participar
 
@@ -32,7 +32,7 @@ Caso tenha alguma dúvida, abra uma issue.
 
 ## Links
 
-- https://laravel.com/docs/5.6/migrations
-- https://laravel.com/docs/5.6/queues
-- https://laravel.com/docs/5.6/notifications
-- https://vuejs.org/v2/guide/single-file-components.html
+* https://laravel.com/docs/5.6/migrations
+* https://laravel.com/docs/5.6/queues
+* https://laravel.com/docs/5.6/notifications
+* https://vuejs.org/v2/guide/single-file-components.html
