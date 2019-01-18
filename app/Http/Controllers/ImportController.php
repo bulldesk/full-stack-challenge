@@ -13,7 +13,14 @@ class ImportController extends Controller
     protected $importacaoService;
 
     public function getHeaders(Request $request)
-    {
+    {   
+        $validator = \Validator::make($request->all(), [
+            'file' => 'required|file',
+        ]);
+    
+        if ($validator->fails()) {
+            return ['status' => false, 'messages' => $validator->errors()];
+        }
 
         if($request->has('file')){
 
@@ -23,11 +30,11 @@ class ImportController extends Controller
             if($extension == 'csv'){
                 $url = $file->storeAs('importacao',time().".".$extension);
                 $csvParser = new CsvParser();  
-                $csvParser->setFile('importacao/teste.csv');
+                $csvParser->setFile($url);
                 $csvParser->setDelimeter(";");
                 $csvParser->parse();
                 $importacaoService = new ImportacaoService($csvParser);
-
+              
                 return response()->json([
                     'data' => [
                         'headers' => $importacaoService->getHeaders(),
@@ -42,11 +49,16 @@ class ImportController extends Controller
     public function importar(Request $request)
     {
         $csvParser = new CsvParser();  
-        $csvParser->setFile('importacao/teste.csv');
+        $csvParser->setFile($request->input('url'));
         $csvParser->setDelimeter(";");
         $importacaoService = new ImportacaoService($csvParser);
         $importacaoService->setAssoc($request->input('associations'));
         ProcessaImportacao::dispatch($importacaoService);
+
+        return response()->json([
+            'data' => [],
+            'message' => 'success'
+        ]);  
     }
 }
 

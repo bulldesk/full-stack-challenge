@@ -1,37 +1,42 @@
 <template>
     <div>
-      <nav-bar title=""></nav-bar>
+      <nav-bar title="Marketing"></nav-bar>
           <div v-if="this.mensagem" class="alert alert-success" role="alert">
             Importação realizada com sucesso!
             Você será notificado quando ela for concluída.
-          </div>  
-          <h2>Importar leads</h2>
-          <div v-if="this.etapa === 1" class="form-group">
-              <input type="file" class="form-control-file" id="file" ref="file" v-on:change="handleFileUpload()">
+          </div> 
+          <div v-if="mensagem.length > 0" class="alert alert-danger" role="alert">
+              {{mensagem}}
           </div>
+          <div class="jumbotron"> 
+            <h2>Importar leads</h2>
+            <div v-if="this.etapa === 1" class="form-group">
+                <input type="file" class="form-control-file" id="file" ref="file" v-on:change="handleFileUpload()">
+            </div>
             <p v-if="this.etapa === 2"> Selecione os campos do arquivo para a respectiva coluna do BD </p>
-          <table v-if="this.etapa === 2" class="table table-striped importacao-table">
-            <thead> 
-              <tr>
-                <th scope="col">Campos do arquivo</th>
-                <th scope="col">Campos disponíveis do sistema</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(item, index) of items">
-                <th scope="row">{{item}}</th>
-                <td>
-                  <select v-bind:id="index" v-model="associations[item]">
-                    <option v-for="(option, index) in leadFields" v-bind:value="index">
-                      {{ option }}
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button v-if="etapa == 1" v-on:click="submitFile(1)" type="submit" class="btn btn-primary">Importar</button>
-          <button v-if="etapa == 2" v-on:click="submitFile(2)" type="submit" class="btn btn-primary">Importar</button>
+            <table v-if="this.etapa === 2" class="table table-striped importacao-table">
+              <thead> 
+                <tr>
+                  <th scope="col">Campos do arquivo</th>
+                  <th scope="col">Campos disponíveis do sistema</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) of items">
+                  <th scope="row">{{item}}</th>
+                  <td>
+                    <select v-bind:id="index" v-model="associations[item]">
+                      <option v-for="(option, index) in leadFields" v-bind:value="index">
+                        {{ option }}
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button v-if="etapa == 1" v-on:click="submitFile(1)" type="submit" class="btn btn-primary">Importar</button>
+            <button v-if="etapa == 2" v-on:click="submitFile(2)" type="submit" class="btn btn-primary">Importar</button>
+          </div>   
       </div>
 </template>
 
@@ -40,7 +45,7 @@
     import * as s from '../servicos'
 
     export default {
-      name:'AdminPage',
+      name:'ImportacaoPage',
       data () {        
         return {
           leadFields:{
@@ -86,9 +91,11 @@
                   }
                 }
               ).then((res) => {
-                  this.items = res.data.data.headers;
-                  this.file = res.data.data.url;
-                  this.etapa++;
+                  if(res.status){
+                    this.items = res.data.data.headers;
+                    this.file = res.data.data.url;
+                    this.etapa++;
+                  }
               })
               .catch((err) => console.error(err));
             }

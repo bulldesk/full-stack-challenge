@@ -17,16 +17,20 @@ class ImportacaoService
 
     public function importar()
     {
-        $this->parser->parse();
-        $rows = $this->parser->getData();
+        try{
+            $this->parser->parse();
+            $rows = $this->parser->getData();
 
-        foreach($rows as $row){           
-            $lead = new Leads(); 
-            foreach($this->assoc as $key => $value){
-                $lead->$value = $row->$key;   
+            foreach($rows as $row){           
+                $lead = new Leads(); 
+                foreach($this->assoc as $key => $value){
+                    $lead->$value = $row->$key;   
+                }
+                $lead->save();
             }
-            $lead->save();
-        }
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }    
     }
 
     public function setParser(Parser $parser)

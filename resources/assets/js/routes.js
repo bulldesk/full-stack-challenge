@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import LoginComponent from './pages/LoginPage'
-import AdminPage from './pages/AdminPage'
-
+import LoginPage from './pages/LoginPage'
+import ImportacaoPage from './pages/ImportacaoPage'
+import HomePage from './pages/HomePage'
+import LeadsListPage from './pages/LeadsListPage'
 
 Vue.use(VueRouter)
 
@@ -11,12 +12,22 @@ const router = new VueRouter({
       {
         path: '/',
         name: 'login',
-        component: LoginComponent
+        component: LoginPage
       },
       {
-        path: '/admin',
-        name: 'admin',
-        component: AdminPage
+        path: '/importar',
+        name: 'importar',
+        component: ImportacaoPage
+      },
+      {
+        path: '/home',
+        name: 'home',
+        component: HomePage
+      },
+      {
+        path: '/leads',
+        name: 'leads',
+        component: LeadsListPage
       }
     ]
 })

@@ -18,4 +18,5 @@ Route::post('/login', 'AuthBasicController@login');
 Route::middleware(['auth.basic.once'])->group(function () {
     Route::post('/importacao/headers', 'ImportController@getHeaders');
     Route::post('/importacao/importar', 'ImportController@importar');
+    Route::resource('leads', 'LeadController');
 });

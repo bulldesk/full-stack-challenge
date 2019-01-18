@@ -8,11 +8,6 @@
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="formData.email" required autofocus>
       <label for="inputPassword" class="sr-only">Senha</label>
       <input type="password" id="inputPassword" class="form-control" v-model="formData.password" placeholder="Password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" v-model="formData.remember"> Remember me
-        </label>
-      </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 </form>
 </template>
@@ -36,8 +31,8 @@
                     if(resp.status){
                         const credenciais = btoa(this.formData.email+':'+this.formData.password)
                         localStorage.setItem("credenciais", JSON.stringify({credenciais}));
-                        localStorage.setItem("user", resp.data);
-                        this.$router.push('admin');
+                        localStorage.setItem("user", JSON.stringify(resp.data));
+                        this.$router.push('home');
                     }else{
                         this.mensagem = resp.messages;     
                     }
@@ -45,7 +40,7 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            localStorage.setItem("credenciais", JSON.stringify({}));
         }
     }
 </script>
