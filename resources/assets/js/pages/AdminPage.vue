@@ -1,11 +1,16 @@
 <template>
-<div>
-    <nav-bar title="Bulldesk"></nav-bar>
-        <h2>Importar leads</h2>
-           <div class="form-group">
+    <div>
+      <nav-bar title=""></nav-bar>
+          <div v-if="this.mensagem" class="alert alert-success" role="alert">
+            Importação realizada com sucesso!
+            Você será notificado quando ela for concluída.
+          </div>  
+          <h2>Importar leads</h2>
+          <div v-if="this.etapa === 1" class="form-group">
               <input type="file" class="form-control-file" id="file" ref="file" v-on:change="handleFileUpload()">
           </div>
-          <table class="table table-striped">
+            <p v-if="this.etapa === 2"> Selecione os campos do arquivo para a respectiva coluna do BD </p>
+          <table v-if="this.etapa === 2" class="table table-striped importacao-table">
             <thead> 
               <tr>
                 <th scope="col">Campos do arquivo</th>
@@ -25,23 +30,23 @@
               </tr>
             </tbody>
           </table>
-              <button v-if="items.length == 0" v-on:click="submitFile(1)" type="submit" class="btn btn-primary">Importar</button>
-    <button v-if="items.length > 0" v-on:click="submitFile(2)" type="submit" class="btn btn-primary">Importar</button>
-</div>
+          <button v-if="etapa == 1" v-on:click="submitFile(1)" type="submit" class="btn btn-primary">Importar</button>
+          <button v-if="etapa == 2" v-on:click="submitFile(2)" type="submit" class="btn btn-primary">Importar</button>
+      </div>
 </template>
 
-
 <script>
-import NavBar from '../components/NavBarComponent'
-import Modal from '../components/ModalComponent'
+    import NavBar from '../components/NavBarComponent'
+    import * as s from '../servicos'
 
- export default {
-        name:'AdminPage',
-        data () {        
-          return {
-            leadFields:{
+    export default {
+      name:'AdminPage',
+      data () {        
+        return {
+          leadFields:{
               id: "ID",
               nome: "Nome",
+              email: 'Email',
               cpf_cnpj: "CPF / CNPJ", 
               profissao: "Profissão", 
               empresa: "Empresa" ,
@@ -58,58 +63,62 @@ import Modal from '../components/ModalComponent'
               dominio: "Domínio",
               data_cadastro: "Data de Cadastro",
               url: "Url"
-            },
-            associations:{
-            },
-            items:[],
-            file: ''
-          }
-        },
-        methods:{
-          submitFile(etapa){
+          },
+          associations:{},
+          items:[],
+          file: '',
+          etapa: 1,
+          mensagem: false
+        }
+      },
+      methods:{
+        created(){ 
+          this.listen();
+        }, 
+        submitFile(etapa){
             if(etapa == 1){
               let formData = new FormData();
               formData.append('file', this.file);
-              console.log(this.file);
-              axios.post( '/api/import/headers',formData,{
+              axios.post( '/api/importacao/headers',formData,{
                   headers: {
-                      'Content-Type': 'multipart/form-data'
+                      'Content-Type': 'multipart/form-data',
+                      'Authorization': 'Basic ' + JSON.parse(localStorage.getItem('credenciais')).credenciais
                   }
                 }
-              )
-              .then((res) => {
+              ).then((res) => {
                   this.items = res.data.data.headers;
                   this.file = res.data.data.url;
+                  this.etapa++;
               })
               .catch((err) => console.error(err));
             }
             if(etapa == 2){
-               let data = {
-                 'associations': this.associations,
-                 'url': this.file
-               }
-               axios.post('/api/import', data,{
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                  }
-                )
-              .then((res) => {
-                    this.items = res.data.data.headers;
-              })
-              .catch((err) => console.error(err));
+              this.etapa = 2;
+              let data = {
+                'associations': this.associations,
+                'url': this.file
+              }
+              s.fazImportacao(data).then(resp => {
+                  this.etapa = 1;
+                  this.mensagem = true;
+              });
             }
-          },
-          handleFileUpload(){
+        },
+        handleFileUpload(){
             this.file = this.$refs.file.files[0];
-          }
         },
-        components:{
-          NavBar,
-          Modal
-        },
-        mounted() {
-            console.log('Component mounted.')
+        listen(){
+            Echo.channel('importacao')
+                .listen('.importacaoLeadsFinalizada', (e) => {
+                    console.log(e.update);
+            });
         }
+      },
+      components:{
+         NavBar
+      },
+      mounted(){
+          console.log('Component mounted.')
+      }
     }
 </script>

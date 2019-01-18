@@ -2,7 +2,9 @@
 
 namespace App\Src\Parser\Csv;
 
-class CsvParser{
+use App\Src\Parser\Parser;
+
+class CsvParser implements Parser{
 
     protected $csv;
     protected $limit = 0;
@@ -12,23 +14,29 @@ class CsvParser{
     protected $headers = array();
     protected $path;
 
-    function __construct(String $csv = "", String $delimiter){
+    function __construct()
+    {
         ini_set('auto_detect_line_endings',TRUE);
-        $this->csv = $csv;
-        $this->delimiter = $delimiter;
-        $this->path = storage_path('app')."/".$this->csv;
     }
 
-    public function setCsv(String $csv){
+    public function setFile(String $csv)
+    {
         $this->csv = $csv;
+        $this->setPath();
+    }
+
+    public function setPath()
+    {
+        $this->path = storage_path('app')."/".$this->csv;
     }
     
-    public function getDelimiter(){
+    public function getDelimiter()
+    {
         return $this->delimiter;
     }
 
-    public function setDelimeter(String $delimiter) {
-	
+    public function setDelimeter(String $delimiter)
+    {
 		if(in_array($delimiter, $this->valid_delimiters) !== true) {
 			throw new \InvalidArgumentException('Delimiter is not valid.');
 		}
@@ -36,16 +44,17 @@ class CsvParser{
 	}
 
     public function getData(){
+
         return $this->data;
     }
     
-    public function getHeaders(){
+    public function getHeaders()
+    {
         return $this->headers;
     }
 
 	public function parse()
 	{
-     
 		if (($handle = fopen($this->getPath(), "r")) !== FALSE) {
 		
 			$i = 0;
@@ -70,11 +79,14 @@ class CsvParser{
 		return preg_replace("/\xEF\xBB\xBF/", "", trim($string));
     }
     
-    public function getPath(){
+    public function getPath()
+    {
         return $this->path;
     }
     
-    public function getLimit(){
+    public function getLimit()
+    {
         return $this->limit;
     }
+
 }

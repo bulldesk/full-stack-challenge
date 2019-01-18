@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImportacaoTable extends Migration
+class CreateEmailField extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateImportacaoTable extends Migration
      */
     public function up()
     {
-        Schema::create('importacao', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('leads', function (Blueprint $table) {
+            $table->string('email')->unique();
         });
+        
     }
 
     /**
@@ -26,6 +26,6 @@ class CreateImportacaoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('importacao');
+        //
     }
 }

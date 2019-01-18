@@ -14,7 +14,6 @@
         <div class="container">
             <div class="content" id="app">
                 <router-view>
-                      <blog-post></blog-post>
                 </router-view>
             </div>
         </div>

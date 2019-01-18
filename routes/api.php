@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/login', 'AuthBasicController@login');
 
-Route::post('/import/headers', 'ImportController@getHeaders');
-Route::resource('/import', 'ImportController');
+Route::middleware(['auth.basic.once'])->group(function () {
+    Route::post('/importacao/headers', 'ImportController@getHeaders');
+    Route::post('/importacao/importar', 'ImportController@importar');
+});

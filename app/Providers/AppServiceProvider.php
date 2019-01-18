@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Queue\Events\JobProcessed;
+use Illuminate\Queue\Events\JobProcessing;
+use App\Events\ProcessaImportacao;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Queue::before(function (JobProcessing $event) {
+            event(new ProcessaImportacao());
+        });
+
+        \Queue::after(function (JobProcessed $event) {
+            event(new ProcessaImportacao());
+        });
     }
 
     /**
@@ -23,6 +32,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+      
     }
 }

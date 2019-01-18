@@ -9,6 +9,13 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import {router} from './routes.js';
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '9082e795e331de1edd89'
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

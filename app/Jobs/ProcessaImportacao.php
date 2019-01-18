@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Src\Importacao\Importacao;
-use App\Src\Importacao\ImportacaoCsv;
+use App\Src\Importacao\ImportacaoService;
 
 class ProcessaImportacao implements ShouldQueue
 {
@@ -21,7 +21,7 @@ class ProcessaImportacao implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Importacao $importacao)
+    public function __construct(ImportacaoService $importacao)
     {
         $this->importacao = $importacao;
     }

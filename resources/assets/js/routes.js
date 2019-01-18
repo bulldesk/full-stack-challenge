@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import LoginComponent from './components/LoginComponent'
+import LoginComponent from './pages/LoginPage'
 import AdminPage from './pages/AdminPage'
 
 
@@ -19,6 +19,6 @@ const router = new VueRouter({
         component: AdminPage
       }
     ]
-  })
+})
 
 export {router};

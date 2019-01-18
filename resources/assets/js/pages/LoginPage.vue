@@ -1,5 +1,8 @@
 <template>
    <form @submit.prevent="login" class="form-signin">
+      <div v-if="mensagem.length > 0" class="alert alert-danger" role="alert">
+        {{mensagem}}
+      </div>
       <h1 class="h3 mb-3 font-weight-normal">Login</h1>
       <label for="inputEmail" class="sr-only">Email</label>
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="formData.email" required autofocus>
@@ -15,23 +18,31 @@
 </template>
 
 <script>
+    import * as s from '../servicos'
     export default {
-        data () {
-          return {
+        data(){
+            return {
             formData: {
                 email: '',
                 password: '',
                 remember:false
             },
-            errors: {},
-            error: ''
-          }
+            mensagem: '',
+            }
         },
         methods:{
-          async login(){
-            const data = await axios.post('/api/v1/login');
-            console.log(data);
-          }
+            login(){
+                s.fazLogin(this.formData.email, this.formData.password).then(resp => {
+                    if(resp.status){
+                        const credenciais = btoa(this.formData.email+':'+this.formData.password)
+                        localStorage.setItem("credenciais", JSON.stringify({credenciais}));
+                        localStorage.setItem("user", resp.data);
+                        this.$router.push('admin');
+                    }else{
+                        this.mensagem = resp.messages;     
+                    }
+                })
+            }
         },
         mounted() {
             console.log('Component mounted.')
@@ -40,7 +51,6 @@
 </script>
 
 <style>
-
 .form-signin {
   width: 100%;
   max-width: 330px;
@@ -70,5 +80,4 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
 </style>
