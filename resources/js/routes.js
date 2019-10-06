@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from './store';
 
 import Login from './pages/Login';
 import Registration from './pages/Registration';
@@ -58,7 +57,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-  const { isLogged } = store.getters;
+  const isLogged = localStorage.getItem('token') !== null;
 
   if (to.path === '/' && isLogged) {
     next({ path: '/upload' });

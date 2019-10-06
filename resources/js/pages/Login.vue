@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import Card from '../components/login/Card';
+import Card from '../components/auth/Card';
 import axios from 'axios';
 
 export default {
@@ -58,9 +58,11 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then((res) => {
+        .then(async (res) => {
+
           const { token } = res.data;
-          this.$store.commit('SET_TOKEN', token);
+          await this.$store.commit('SET_TOKEN', token);
+
           this.$router.push('/upload');
         })
         .catch((err) => {

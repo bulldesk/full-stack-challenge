@@ -21,8 +21,6 @@ class LeadsController extends Controller
         unset($file_data[0]);
         $file_data = array_values($file_data);
 
-        $file_data = array_slice($file_data, 0, 100);
-
         foreach ($file_data as $row) {
             $row_values = explode(';', $row[0]);
             $register = [];

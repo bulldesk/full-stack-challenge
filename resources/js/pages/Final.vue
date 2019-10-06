@@ -12,11 +12,17 @@
         </p>
 
       </div>
+      <div class="col">
+        <Alert title="Atenção" ref="alert">
+          Importação de dados finalizada!
+        </Alert>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Alert from '../components/Alert';
 import { mapState } from 'vuex';
 
 export default {
@@ -26,6 +32,20 @@ export default {
     ...mapState([
       'finished',
     ]),
+  },
+
+  watch: {
+    finished: {
+      handler(value) {
+        if (value) {
+          this.$refs.alert.show();
+        }
+      },
+    },
+  },
+
+  components: {
+    Alert,
   },
 };
 </script>

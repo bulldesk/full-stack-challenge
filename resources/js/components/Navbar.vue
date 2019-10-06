@@ -17,13 +17,13 @@ export default {
 
   computed: {
     logged() {
-      return this.$store.getters.isLogged;
+      return this.$store.state.isLogged;
     },
   },
 
   methods: {
     logout() {
-      localStorage.removeItem('token');
+      this.$store.commit('RESET_TOKEN');
       this.$router.push('/');
     },
   },

@@ -4,33 +4,35 @@
     <div class="row">
       <div class="col">
 
-        <input
-          class="form-control mb-2"
-          type="text"
-          placeholder="Nome"
-          v-model="name"
-        />
+        <Card title="Crie uma conta">
+          <input
+            class="form-control mb-2"
+            type="text"
+            placeholder="Nome"
+            v-model="name"
+          />
 
-        <input
-          class="form-control mb-2"
-          type="text"
-          placeholder="E-mail"
-          v-model="email"
-        />
+          <input
+            class="form-control mb-2"
+            type="text"
+            placeholder="E-mail"
+            v-model="email"
+          />
 
-        <input
-          class="form-control mb-2"
-          type="password"
-          placeholder="Senha"
-          v-model="password"
-        />
+          <input
+            class="form-control mb-2"
+            type="password"
+            placeholder="Senha"
+            v-model="password"
+          />
 
-        <button
-          class="btn btn-primary"
-          @click="register"
-        >
-          Enviar
-        </button>
+          <button
+            class="btn btn-primary"
+            @click="register"
+          >
+            Enviar
+          </button>
+        </Card>
       
       </div>
     </div>
@@ -40,6 +42,7 @@
 
 <script>
 import axios from 'axios';
+import Card from '../components/auth/Card';
 
 export default {
   name: 'Registration',
@@ -66,6 +69,10 @@ export default {
           this.$router.push('/');
         });
     },
+  },
+
+  components: {
+    Card,
   },
 };
 </script>
