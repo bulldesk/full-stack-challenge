@@ -75,7 +75,11 @@ export default {
     submit() {
       axios.post('/api/leads/process', {
         fields: this.mappedFields,
-      });
+      })
+        .then(() => {
+          this.$router.push('/final');
+        })
+        .catch(() => {});
     },
   },
 };

@@ -13,16 +13,20 @@ class ProcessLeads implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $fields;
     protected $lead;
+    public $total;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($lead)
+    public function __construct($payload)
     {
-        $this->lead = $lead;
+        $this->total = $payload['total'];
+        $this->fields = $payload['fields'];
+        $this->lead = $payload['lead'];
     }
 
     /**
@@ -32,5 +36,14 @@ class ProcessLeads implements ShouldQueue
      */
     public function handle()
     {
+        $register = [];
+
+        foreach ($this->lead as $field => $value) {
+            if (array_key_exists($field, $this->fields)) {
+                $register[ $this->fields[ $field ] ] = $value;
+            }
+        }
+
+        Lead::create($register);
     }
 }

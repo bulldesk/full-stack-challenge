@@ -1,7 +1,15 @@
 <template>
-  <div>
-    <input type="file" @input="selectFile">
-    <button @click="submit">Enviar</button>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <input class="mb-2" type="file" @input="selectFile">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary" @click="submit">Enviar</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,6 +48,6 @@ export default {
           console.log(err);
         });
     }
-  }
+  },
 };
 </script>
