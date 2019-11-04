@@ -1,0 +1,6 @@
+192.168.33.1 - - [31/Oct/2019:00:09:03 +0000] "GET / HTTP/1.1" 200 627 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
+192.168.33.1 - - [31/Oct/2019:00:09:04 +0000] "GET /css/app.css HTTP/1.1" 200 218890 "http://vue-spa.dev.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
+192.168.33.1 - - [31/Oct/2019:00:09:03 +0000] "GET /js/app.js HTTP/1.1" 200 1625196 "http://vue-spa.dev.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
+192.168.33.1 - - [31/Oct/2019:00:09:04 +0000] "GET /favicon.ico HTTP/1.1" 200 - "http://vue-spa.dev.com/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
+192.168.33.1 - - [31/Oct/2019:00:09:09 +0000] "GET /css/app.css HTTP/1.1" 304 - "http://vue-spa.dev.com/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
+192.168.33.1 - - [31/Oct/2019:00:09:09 +0000] "GET /js/popper.js.map HTTP/1.1" 200 627 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
