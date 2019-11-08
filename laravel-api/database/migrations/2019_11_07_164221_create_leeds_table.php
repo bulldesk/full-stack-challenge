@@ -36,8 +36,9 @@ class CreateLeedsTable extends Migration
          * 
          * 
          */
-        Schema::create('leeds', function (Blueprint $table) {
+        Schema::create('leeds', function (Blueprint $table) {            
             $table->bigIncrements('id');
+            $table->string('codigo', 100);                  //Codigo externo
             $table->string('name', 200);                    // Nome
             $table->string('email', 100);                   // Email
             $table->string('cpf');                          // Cpf|cnpj

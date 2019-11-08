@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Leed extends Model
 {
     protected $fillable = [
+        'codigo',
         'name', 
         'email', 
         'cpf', 

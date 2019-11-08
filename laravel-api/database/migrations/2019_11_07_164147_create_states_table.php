@@ -23,6 +23,8 @@ class CreateStatesTable extends Migration
                 ->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique('name', 'country_id');
         });
     }
 
