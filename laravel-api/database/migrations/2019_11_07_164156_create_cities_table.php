@@ -23,6 +23,7 @@ class CreateCitiesTable extends Migration
                 ->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['name','state_id']);
         });
     }
 

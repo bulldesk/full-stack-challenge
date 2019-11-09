@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Leed extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
-        'codigo',
+        'code',
         'name', 
         'email', 
         'cpf', 

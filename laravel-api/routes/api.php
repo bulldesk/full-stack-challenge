@@ -19,3 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('leedstatus', 'LeedStatusesController');
 Route::apiResource('leedstates', 'LeedStatesController');
+Route::apiResource('country', 'CountriesController');
+Route::apiResource('company', 'CompaniesController');
+Route::apiResource('state', 'StatesController');
+Route::apiResource('city', 'CitiesController');
+Route::apiResource('leed', 'LeedsController');

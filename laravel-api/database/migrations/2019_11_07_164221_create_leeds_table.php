@@ -38,35 +38,35 @@ class CreateLeedsTable extends Migration
          */
         Schema::create('leeds', function (Blueprint $table) {            
             $table->bigIncrements('id');
-            $table->string('codigo', 100);                  //Codigo externo
-            $table->string('name', 200);                    // Nome
-            $table->string('email', 100);                   // Email
-            $table->string('cpf');                          // Cpf|cnpj
-            $table->string('job', 100);                     // Profissão / Cargo 
-            $table->string('phone', 100);                   // Telefone 
-            $table->string('title', 100);                   // Título do Negócio 
-            $table->decimal('value', 10, 2);                // Valor do Negócio
-            $table->integer('conversions');                 // Conversões 
-            $table->longText('last_conversions');           // Última Conversão 
-            $table->longText('domain');                     // Domínio
-            $table->dateTime('registration_date');          // Data de Cadastro
-            $table->longText('url');                        // URL
-            $table->bigInteger('company_id')->unsigned();      // Empresa
+            $table->string('code', 100)->unique();             //Codigo externo
+            $table->string('name', 200);                        // Nome
+            $table->string('email', 100);                       // Email
+            $table->string('cpf',14);                              // Cpf|cnpj
+            $table->string('job', 100);                         // Profissão / Cargo 
+            $table->string('phone', 100);                       // Telefone 
+            $table->string('title', 100);                       // Título do Negócio 
+            $table->decimal('value', 10, 2);                    // Valor do Negócio
+            $table->integer('conversions');                     // Conversões 
+            $table->longText('last_conversions');               // Última Conversão 
+            $table->longText('domain');                         // Domínio
+            $table->dateTime('registration_date');              // Data de Cadastro
+            $table->longText('url');                            // URL
+            $table->bigInteger('company_id')->unsigned();       // Empresa
             $table->foreign('company_id')
                 ->references('id')
                 ->on('companies')
                 ->onUpdate('cascade');
-            $table->bigInteger('city_id')->unsigned();         // Endereço Cidade/Estado/Pais 
+            $table->bigInteger('city_id')->unsigned();          // Endereço Cidade/Estado/Pais 
             $table->foreign('city_id')
                 ->references('id')
                 ->on('cities')
                 ->onUpdate('cascade');
-            $table->bigInteger('leed_status_id')->unsigned();  // Status
+            $table->bigInteger('leed_status_id')->unsigned();   // Status
             $table->foreign('leed_status_id')
                 ->references('id')
                 ->on('leed_statuses')
                 ->onUpdate('cascade');
-            $table->bigInteger('leed_states_id')->unsigned(); // Estágio do Funil
+            $table->bigInteger('leed_states_id')->unsigned();   // Estágio do Funil
             $table->foreign('leed_states_id')
                 ->references('id')
                 ->on('leed_states')

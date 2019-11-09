@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\LeedStates;
+use App\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
-class LeedStatesController extends Controller
+class CitiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class LeedStatesController extends Controller
      */
     public function index()
     {
-        return LeedStates::all();
+        return City::all();
     }
 
     /**
@@ -26,66 +27,74 @@ class LeedStatesController extends Controller
      */
     public function store(Request $request)
     {
-        $result = $this->leedStatesValidate($request);
-        if ($result) {
+        $result = $this->cityValidate($request);
+        if ($result) {            
             return response()->json($result, 400);
         } else {
-            $status = LeedStates::create($request->all());
-            return response()->json($status, 201);
+            
+            $state = City::create($request->all());
+            return response()->json($state, 201);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\LeedStates  $leedStates
+     * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show(LeedStates $leedstates)
+    public function show(City $city)
     {
-        return $leedstates;
+        $city->load('state');
+        $city->state->load('country');
+        return $city;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\LeedStates  $leedstates
+     * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LeedStates $leedstates)
+    public function update(Request $request, City $city)
     {
-        $result = $this->leedStatesValidate($request);
+        $result = $this->cityValidate($request);
         if ($result) {
             return response()->json($result, 400);
         } else {
-            $leedstates->update($request->all());
-            return response()->json($leedstates, 200);
+            $city->update($request->all());
+            return response()->json($city, 200);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LeedStates  $leedstates
+     * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LeedStates $leedstates)
+    public function destroy(City $city)
     {
-        $leedstates->delete();
+        $city->delete();
         return response()->json(null, 204);
     }
-    private function leedStatesValidate(Request $request)
+    private function cityValidate(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:leed_states|max:200',
+            'name' => ['required','max:200', 
+                Rule::unique('cities')->where('state_id',$request->state_id)
+            ],
+            'state_id' => 'required|numeric'
         ], [
             'required' => 'O campo :attribute é obrigatório',
-            'unique' => 'Esse estágio ja existe',
-            'max' => 'O nome do estágio deve conter um maximo de 200 caracteres',
+            'max' => 'O nome da cidade deve conter um maximo de 200 caracteres',
+            'numeric' => 'O campo :attribute deve ser um numero',
+            'unique' => 'Essa cidade ja existe'
         ], [
-            'name'      => 'Nome do estágio do funil do leed',
+            'name'      => 'Nome de uma cidade',
+            'state_id'=> 'Codigo identificador de estado no sistema'
         ]);
 
 

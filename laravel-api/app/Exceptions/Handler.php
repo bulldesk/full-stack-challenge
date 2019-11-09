@@ -46,29 +46,32 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {    
-            // Define the response
-            $response = [
-                'errors' => 'Sorry, something went wrong.'
-            ];
-    
-            // If the app is in debug mode
-            if (config('app.debug')) {
-                // Add the exception class name, message and stack trace to response
-                $response['exception'] = get_class($exception); // Reflection might be better here
-                $response['message'] = $exception->getMessage();
-            }
-    
-            // Default response of 400
-            $status = 400;
-    
-            // If this exception is an instance of HttpException
-            if ($this->isHttpException($exception)) {
-                // Grab the HTTP status code from the Exception
-                $status = $exception->getStatusCode();
-            }
-    
-            // Return a JSON response with the response array and status code
-            return response()->json($response, $status);
-        // return parent::render($request, $exception);
+        
+        // return parent::render($request, $exception)  //original
+
+        // Define the response
+        $response = [
+            'errors' => 'Sorry, something went wrong.'
+        ];
+        
+        // If the app is in debug mode
+        if (config('app.debug')) {
+            // Add the exception class name, message and stack trace to response
+            $response['exception'] = get_class($exception); // Reflection might be better here
+            $response['message'] = $exception->getMessage();
+        }
+        
+        // Default response of 400
+        $status = 400;
+        
+        // If this exception is an instance of HttpException
+        if ($this->isHttpException($exception)) {
+            // Grab the HTTP status code from the Exception
+            $status = $exception->getStatusCode();
+        }
+        
+        // Return a JSON response with the response array and status code
+        return response()->json($response, $status);
+
     }
 }

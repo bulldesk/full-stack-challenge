@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\LeedStates;
+use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class LeedStatesController extends Controller
+class CompaniesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class LeedStatesController extends Controller
      */
     public function index()
     {
-        return LeedStates::all();
+        return Company::all();
     }
 
     /**
@@ -26,11 +26,11 @@ class LeedStatesController extends Controller
      */
     public function store(Request $request)
     {
-        $result = $this->leedStatesValidate($request);
+        $result = $this->companyValidate($request);
         if ($result) {
             return response()->json($result, 400);
         } else {
-            $status = LeedStates::create($request->all());
+            $status = Company::create($request->all());
             return response()->json($status, 201);
         }
     }
@@ -38,54 +38,55 @@ class LeedStatesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\LeedStates  $leedStates
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(LeedStates $leedstates)
+    public function show(Company $company)
     {
-        return $leedstates;
+        return $company;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\LeedStates  $leedstates
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LeedStates $leedstates)
+    public function update(Request $request, Company $company)
     {
-        $result = $this->leedStatesValidate($request);
+        $result = $this->companyValidate($request);
         if ($result) {
             return response()->json($result, 400);
         } else {
-            $leedstates->update($request->all());
-            return response()->json($leedstates, 200);
+            $company->update($request->all());
+            return response()->json($company, 200);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\LeedStates  $leedstates
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LeedStates $leedstates)
+    public function destroy(Company $company)
     {
-        $leedstates->delete();
+        $company->delete();
         return response()->json(null, 204);
     }
-    private function leedStatesValidate(Request $request)
+
+    private function companyValidate(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:leed_states|max:200',
+            'name' => 'required|unique:companies|max:200',
         ], [
             'required' => 'O campo :attribute é obrigatório',
-            'unique' => 'Esse estágio ja existe',
-            'max' => 'O nome do estágio deve conter um maximo de 200 caracteres',
+            'unique' => 'Essa empresa ja existe',
+            'max' => 'O nome da empresa deve conter um maximo de 200 caracteres',
         ], [
-            'name'      => 'Nome do estágio do funil do leed',
+            'name'      => 'Nome da empresa',
         ]);
 
 
