@@ -29,7 +29,7 @@ class CompaniesController extends Controller
         $result = $this->companyValidate($request);
         if ($result) {
             return response()->json($result, 400);
-        } else {
+        } else {            
             $status = Company::create($request->all());
             return response()->json($status, 201);
         }
@@ -80,7 +80,7 @@ class CompaniesController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:companies|max:200',
+            'company_name' => 'required|unique:companies|max:200',
         ], [
             'required' => 'O campo :attribute é obrigatório',
             'unique' => 'Essa empresa ja existe',

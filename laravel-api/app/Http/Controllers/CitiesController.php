@@ -83,7 +83,7 @@ class CitiesController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => ['required','max:200', 
+            'city_name' => ['required','max:200', 
                 Rule::unique('cities')->where('state_id',$request->state_id)
             ],
             'state_id' => 'required|numeric'

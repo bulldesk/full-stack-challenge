@@ -82,7 +82,7 @@ class StatesController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => ['required','max:200', 
+            'stare_name' => ['required','max:200', 
                 Rule::unique('states')->where('country_id',$request->country_id)
             ],
             'country_id' => 'required|numeric'

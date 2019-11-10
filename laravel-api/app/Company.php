@@ -9,7 +9,7 @@ class Company extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['company_name'];
 
     protected $dates = ['deleted_at'];
    

@@ -9,7 +9,7 @@ class LeedStatus extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['status_leed_name'];
 
     protected $dates = ['deleted_at'];
 

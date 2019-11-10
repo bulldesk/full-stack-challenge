@@ -79,7 +79,7 @@ class CountriesController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:countries|max:200',
+            'country_name' => 'required|unique:countries|max:200',
         ], [
             'required' => 'O campo :attribute é obrigatório',
             'unique' => 'Esse pais ja existe',

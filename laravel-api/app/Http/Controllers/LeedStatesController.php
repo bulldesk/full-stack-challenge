@@ -79,7 +79,7 @@ class LeedStatesController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:leed_states|max:200',
+            'state_leed_name' => 'required|unique:leed_states|max:200',
         ], [
             'required' => 'O campo :attribute é obrigatório',
             'unique' => 'Esse estágio ja existe',

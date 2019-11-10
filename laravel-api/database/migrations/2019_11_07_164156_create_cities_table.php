@@ -15,7 +15,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 200);                    // Nome
+            $table->string('city_name', 200);                    // Nome
             $table->bigInteger('state_id')->unsigned(); 
             $table->foreign('state_id')
                 ->references('id')
@@ -23,7 +23,7 @@ class CreateCitiesTable extends Migration
                 ->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
-            $table->unique(['name','state_id']);
+            $table->unique(['city_name','state_id']);
         });
     }
 

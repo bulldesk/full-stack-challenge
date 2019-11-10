@@ -9,7 +9,7 @@ class City extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'state_id'];
+    protected $fillable = ['city_name', 'state_id'];
 
     protected $dates = ['deleted_at'];
 

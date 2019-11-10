@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Leed;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,7 +44,7 @@ class LeedsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Leed $leed)
-    {
+    {        
         $leed->load('company');
         $leed->load('leedStatus');
         $leed->load('leedStates');
@@ -105,21 +106,29 @@ class LeedsController extends Controller
          *Data de Cadastro 
          *URL
          */
+        // dd(date('Y-m-d',strtotime($request->registration_date)));
+
+        $date= $request->registration_date;
+        if(strstr($date,'/')){
+            $date=Carbon::createFromFormat('d/m/Y H:i', $date)->format('Y-m-d H:i:s');
+            $request['registration_date']=$date;
+        }
+
 
         $validator = Validator::make($request->all(), [
             'code'            => 'required|unique:leeds|numeric',
             'name'              => 'required|max:200',
             'email'             => 'required|email|max:100',
-            'cpf'               => 'required|min:11|max:14',
+            'cpf'               => 'required',                      //'required|min:11|max:14',
             'job'               => 'required|max:100',
             'phone'             => 'required|max:100',
             'title'             => 'string|max:100',
             'value'             => 'string|max:200',
-            'conversions'        => 'required|numeric|max:11',
+            'conversions'       => 'required|numeric|max:11',
             'last_conversions'  => 'string',
             'domain'            => 'string',
             'registration_date' => 'required|date',
-            'url'               => 'required|url',
+            'url'               => 'required',                      //'required|url',
             'company_id'        => 'required|numeric',
             'city_id'           => 'required|numeric',
             'leed_status_id'    => 'required|numeric',
@@ -133,6 +142,7 @@ class LeedsController extends Controller
             'email' => 'O campo :attribute deve ser um email valido',
             'url' => 'O campo :attribute deve ser uma url valida',
             'string' => 'O campo :attribute deve ser uma string',
+            'date_format' => 'O campo :attribute deve ser uma data',
             
         ], [
             'code'                  => 'Codigo externo do leed',

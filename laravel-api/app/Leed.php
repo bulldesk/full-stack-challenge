@@ -33,6 +33,7 @@ class Leed extends Model
 
     protected $casts = [
         'registration_date' => 'datetime',
+        'value' => 'float'
     ];
 
     function company() {

@@ -15,7 +15,7 @@ class CreateStatesTable extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 200);                    // Nome
+            $table->string('state_name', 200);                    // Nome
             $table->bigInteger('country_id')->unsigned(); 
             $table->foreign('country_id')
                 ->references('id')
@@ -23,7 +23,7 @@ class CreateStatesTable extends Migration
                 ->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
-            $table->unique(['name','country_id']);
+            $table->unique(['state_name','country_id']);
         });
     }
 

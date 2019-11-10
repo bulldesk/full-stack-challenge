@@ -15,7 +15,7 @@ class CreateLeedStatesTable extends Migration
     {
         Schema::create('leed_states', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 200);                    // Nome
+            $table->string('state_leed_name', 200);                    // Nome
             $table->timestamps();
             $table->softDeletes();
         });

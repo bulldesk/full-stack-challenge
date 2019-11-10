@@ -9,7 +9,7 @@ class Country extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['country_name'];
 
     protected $dates = ['deleted_at'];
 
