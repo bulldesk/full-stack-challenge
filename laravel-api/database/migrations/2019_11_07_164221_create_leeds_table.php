@@ -44,11 +44,15 @@ class CreateLeedsTable extends Migration
             $table->string('cpf',14);                              // Cpf|cnpj
             $table->string('job', 100);                         // Profissão / Cargo 
             $table->string('phone', 100);                       // Telefone 
-            $table->string('title', 100);                       // Título do Negócio 
-            $table->decimal('value', 10, 2);                    // Valor do Negócio
+            $table->string('title', 100)                        // Título do Negócio 
+                ->nullable(true);                               
+            $table->decimal('value', 10, 2)                     // Valor do Negócio
+                ->nullable(true);
             $table->integer('conversions');                     // Conversões 
-            $table->longText('last_conversions');               // Última Conversão 
-            $table->longText('domain');                         // Domínio
+            $table->longText('last_conversions')                // Última Conversão 
+                ->nullable(true);
+            $table->longText('domain')                          // Domínio
+                ->nullable(true);
             $table->dateTime('registration_date');              // Data de Cadastro
             $table->longText('url');                            // URL
             $table->bigInteger('company_id')->unsigned();       // Empresa

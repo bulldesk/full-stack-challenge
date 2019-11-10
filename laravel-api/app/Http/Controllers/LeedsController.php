@@ -114,6 +114,15 @@ class LeedsController extends Controller
             $request['registration_date']=$date;
         }
 
+        if(substr_count($request['value'],',') && (strlen($request['value'])-strrpos($request['value'],','))==3){
+            $request['value']=str_replace('.','',$request['value']);
+            $request['value']=str_replace(',','.',$request['value']);
+
+        }else{
+            $request['value']=str_replace(',','',$request['value']);
+        }
+
+        $request['value']=number_format($request['value'], 2, '.','');    
 
         $validator = Validator::make($request->all(), [
             'code'            => 'required|unique:leeds|numeric',
@@ -123,7 +132,7 @@ class LeedsController extends Controller
             'job'               => 'required|max:100',
             'phone'             => 'required|max:100',
             'title'             => 'string|max:100',
-            'value'             => 'string|max:200',
+            'value'             => 'string|numeric|max:9999999',
             'conversions'       => 'required|numeric|max:11',
             'last_conversions'  => 'string',
             'domain'            => 'string',

@@ -130,29 +130,46 @@ class ImportLeedsFromCSV implements ShouldQueue
                         $date = Carbon::createFromFormat('d/m/Y H:i', $date)->format('Y-m-d H:i:s');
                         $field = $date;
                     }
+
                 }
-                $newField[$this->conversion[$header[$key]]] = $field;
+
+                if ($this->conversion[$header[$key]] == 'value' && ($field!="" && $field!=" ")) {
+
+                    if(substr_count($field,',') && (strlen($field)-strrpos($field,','))==3){
+                        $field=str_replace('.','',$field);
+                        $field=str_replace(',','.',$field);
+            
+                    }else{
+                        $field=str_replace(',','',$field);
+                    }
+                    $field=number_format($field, 2, '.','');  
+                }
+                if($field!="" && $field!=" "){
+                    $newField[$this->conversion[$header[$key]]] = $field;
+                }
             }
 
-            $company = Company::firstOrCreate(['company_name' => $newField['company_name']]);
-            $newField['company_id'] = $company->id;
-
-            $leed_status = LeedStatus::firstOrCreate(['status_leed_name' => $newField['status_leed_name']]);
-            $newField['leed_status_id'] = $leed_status->id;
-
-            $leed_state = LeedStates::firstOrCreate(['state_leed_name' => $newField['state_leed_name']]);
-            $newField['leed_states_id'] = $leed_state->id;
-
-            $country = Country::firstOrCreate(['country_name' => $newField['country_name']]);
-            $newField['country_id'] = $country->id;
-
-            $state = State::firstOrCreate(['state_name' => $newField['state_name'], 'country_id' => $newField['country_id']]);
-            $newField['state_id'] = $state->id;
-
-            $city = City::firstOrCreate(['city_name' => $newField['city_name'], 'state_id' => $newField['state_id']]);
-            $newField['city_id'] = $city->id;
-
-            $leed = Leed::create($newField);
+            if(Leed::where('code', $newField['code'])->count()===0){
+                $company = Company::firstOrCreate(['company_name' => $newField['company_name']]);
+                $newField['company_id'] = $company->id;
+    
+                $leed_status = LeedStatus::firstOrCreate(['status_leed_name' => $newField['status_leed_name']]);
+                $newField['leed_status_id'] = $leed_status->id;
+    
+                $leed_state = LeedStates::firstOrCreate(['state_leed_name' => $newField['state_leed_name']]);
+                $newField['leed_states_id'] = $leed_state->id;
+    
+                $country = Country::firstOrCreate(['country_name' => $newField['country_name']]);
+                $newField['country_id'] = $country->id;
+    
+                $state = State::firstOrCreate(['state_name' => $newField['state_name'], 'country_id' => $newField['country_id']]);
+                $newField['state_id'] = $state->id;
+    
+                $city = City::firstOrCreate(['city_name' => $newField['city_name'], 'state_id' => $newField['state_id']]);
+                $newField['city_id'] = $city->id;
+    
+                $leed = Leed::create($newField);
+            }
         }
     }
 }
