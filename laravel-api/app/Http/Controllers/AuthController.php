@@ -74,12 +74,27 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
+        // return response()->json([
+        //     'access_token' => $token,
+        //     'token_type' => 'bearer',
+        //     'expires_in'   => $this->guard()->factory()->getTTL() * 60,
+        // ]);
+
+        return response([
             'access_token' => $token,
             'token_type' => 'bearer',
-            // 'expires_in' => $this->guard()->factory()->getTTL() * 60
             'expires_in'   => $this->guard()->factory()->getTTL() * 60,
-        ]);
+        ],200)->header('Access-Control-Allow-Headers','uthorization,content-type')
+            ->header('Access-Control-Expose-Headers','Authorization')
+            ->header('Authorization','bearer '.$token);
+            // ->json([
+            //     'access_token' => $token,
+            //     'token_type' => 'bearer',
+            //     'expires_in'   => $this->guard()->factory()->getTTL() * 60,
+            // ]);
+
+        // Access-Control-Allow-Headers: "Authorization,content-type"
+        // Access-Control-Expose-Headers: "Authorization"
     }
     /**
      * Get the guard to be used during authentication.
