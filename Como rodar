@@ -12,4 +12,4 @@ Frontend: prod.env.js ou dev.env.js dentro da pasta codigo_vue/config
 
 * O arquivo bulldesk.colecao_postman.json é export postman, através dele é possivel importar alguns request para testar o backend
 
-* Documentação da API https://documenter.getpostman.com/view/7035311/SW7T6qod?version=latest
+* Uma pequena documentação da API https://documenter.getpostman.com/view/7035311/SW7T6qod?version=latest
