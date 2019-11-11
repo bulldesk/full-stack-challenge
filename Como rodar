@@ -1,0 +1,15 @@
+A algumas formas de rodar as aplicações, mas como se trata de um teste um dos jeitos mais simples é:
+
+Backend: No terminal, na pasta laravel-api executar comando:$ php artisan serve
+
+frondend: No terminal, na pasta codigo_vue executar comando:$ npm run dev
+
+* Atenção as configurações do banco de dados (inclusive o redis) e portas, essas configurações ficam:
+
+Backend: No .env dentro da pasta laravel-api
+
+Frontend: prod.env.js ou dev.env.js dentro da pasta codigo_vue/config 
+
+* O arquivo bulldesk.colecao_postman.json é export postman, através dele é possivel importar alguns request para testar o backend
+
+* Documentação da API https://documenter.getpostman.com/view/7035311/SW7T6qod?version=latest

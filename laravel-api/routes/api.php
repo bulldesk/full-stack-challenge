@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+//Rotas para o jwt 
+
 Route::group([
 
     'middleware' => 'api',
@@ -26,41 +28,16 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
 });
+// Rotas CRUD
 
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::apiResource('leedstatus', 'LeedStatusesController');
-Route::apiResource('leedstates', 'LeedStatesController');
-Route::apiResource('country', 'CountriesController');
-Route::apiResource('company', 'CompaniesController');
+Route::apiResource('leedstatus', 'LeedStatusesController')->middleware('auth:api');
+Route::apiResource('leedstates', 'LeedStatesController')->middleware('auth:api');
+Route::apiResource('country', 'CountriesController')->middleware('auth:api');
+Route::apiResource('company', 'CompaniesController')->middleware('auth:api');
 Route::apiResource('state', 'StatesController')->middleware('auth:api');
-Route::apiResource('city', 'CitiesController');
-Route::apiResource('leed', 'LeedsController');
-Route::apiResource('user', 'UserController');
+Route::apiResource('city', 'CitiesController')->middleware('auth:api');
+Route::apiResource('leed', 'LeedsController')->middleware('auth:api');
+Route::apiResource('user', 'UserController');// Middleware configurado no contrutor do controller para poder excluir o store de auth e então cadastrar usuario sem logar
 
+//Rota para importação
 Route::post('leedsimport', 'ImportController@upload')->middleware('auth:api');
-
-Route::get('/que',function (){                                                     // route from /que
-    $queue = Queue::push('LogMessage', array('message' => 'Time: '.time()));               // this will push job in queue
-                                // OR
-    //$queue = Queue::later($delay,'LogMessage', array('message' => 'Time: '.time()));     // this will push job in queue after $delay 
-    //sleep(5);    //you can add delay here too
-    
-    print_r(" ".$queue." ".time());            //prints queue_id and time stamp
- });
- 
- 
- class LogMessage{                                                                //bad practice to deploy code here :p
- 
- 
-       public function fire($job,$data){                                         //takes data and performs action.
-            
-            File::append(app_path().'/queue.txt',$data['message'].PHP_EOL);
-            $job->delete();
- 
- 
-        }
- }
