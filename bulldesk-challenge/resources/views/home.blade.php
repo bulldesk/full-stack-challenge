@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <lead-component import-leads-route="{{route('importLeads')}}"></lead-component>
                 </div>
             </div>
         </div>
