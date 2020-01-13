@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\ImportDone;
 use App\Lead;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -9,7 +10,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class ImportLead implements ShouldQueue
 {
@@ -48,7 +48,7 @@ class ImportLead implements ShouldQueue
         Lead::create($this->lead);
         if ($this->last === true) {
             $user = Auth::loginUsingId($this->user_id);
-            Log::info('ultimo registro' . $user);
+            broadcast(new ImportDone($user, $this->index + 1 ." registros importados."))->toOthers();
         }
     }
 }

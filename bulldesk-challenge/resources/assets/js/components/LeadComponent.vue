@@ -43,6 +43,11 @@
         name: "LeadComponent",
         mounted() {
             console.log('LeadComponent pronto.');
+            Echo.private('messages')
+                .listen('ImportDone', (ret) => {
+                    const notification = `${ret.user.name}, a importação foi um sucesso. ${ret.message}`;
+                    console.log(notification);
+                });
         },
         data(){
             return {
