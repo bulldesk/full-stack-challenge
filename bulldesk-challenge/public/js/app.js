@@ -59828,7 +59828,7 @@ exports = module.exports = __webpack_require__(57)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -60340,7 +60340,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_toasted___default.a);
     },
     name: "LeadComponent",
     mounted: function mounted() {
-        console.log('LeadComponent pronto.');
         Echo.private('messages').listen('ImportDone', function (ret) {
             var notification = ret.user.name + ', a importa\xE7\xE3o foi um sucesso. ' + ret.message;
             Vue.toasted.show(notification, {

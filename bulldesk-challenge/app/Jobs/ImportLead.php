@@ -17,8 +17,8 @@ class ImportLead implements ShouldQueue
 
     public $lead;
     public $user_id;
-    public $last;
     public $index;
+    public $type;
 
     /**
      * Create a new job instance.
@@ -26,16 +26,16 @@ class ImportLead implements ShouldQueue
      * @param array $lead
      * @param int $user_id
      * @param int $index
-     * @param bool $last
+     * @param string $type
      *
      * @return void
      */
-    public function __construct(array $lead, int $user_id, int $index, bool $last = false)
+    public function __construct(array $lead, int $user_id, int $index, string $type)
     {
         $this->lead = $lead;
         $this->user_id = $user_id;
         $this->index = $index;
-        $this->last = $last;
+        $this->type = $type;
     }
 
     /**
@@ -46,9 +46,11 @@ class ImportLead implements ShouldQueue
     public function handle()
     {
         Lead::create($this->lead);
-        if ($this->last === true) {
+
+        if ($this->type === 'last') {
             $user = Auth::loginUsingId($this->user_id);
-            broadcast(new ImportDone($user, $this->index + 1 ." registros importados."))->toOthers();
+            $message = $this->index + 1 ." registros importados.";
+            broadcast(new ImportDone($user, $message))->toOthers();
         }
     }
 }

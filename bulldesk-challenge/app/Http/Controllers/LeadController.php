@@ -13,11 +13,11 @@ class LeadController extends Controller
         $leads = $request->get('csv');
         $user_id = Auth::user()->id;
         foreach ($leads as $key => $lead) {
+            $type = '';
             if ($key == count($leads) - 1) {
-                ImportLead::dispatch($lead, $user_id, $key, true);
-            } else {
-                ImportLead::dispatch($lead, $user_id, $key);
+                $type = 'last';
             }
+            ImportLead::dispatch($lead, $user_id, $key, $type);
         }
     }
 }
