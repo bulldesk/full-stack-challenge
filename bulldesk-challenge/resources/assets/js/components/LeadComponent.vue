@@ -33,6 +33,9 @@
 
 <script>
     import { VueCsvImport } from 'vue-csv-import';
+    import Toasted from 'vue-toasted';
+    Vue.use(Toasted);
+
     export default {
         props: [
             'importLeadsRoute'
@@ -42,11 +45,13 @@
         },
         name: "LeadComponent",
         mounted() {
-            console.log('LeadComponent pronto.');
             Echo.private('messages')
                 .listen('ImportDone', (ret) => {
                     const notification = `${ret.user.name}, a importação foi um sucesso. ${ret.message}`;
-                    console.log(notification);
+                    Vue.toasted.show(notification, {
+                        type: 'success',
+                        theme: 'bubble'
+                    });
                 });
         },
         data(){

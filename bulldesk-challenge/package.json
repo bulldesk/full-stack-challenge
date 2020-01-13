@@ -22,6 +22,7 @@
     "dependencies": {
         "laravel-echo": "^1.6.1",
         "pusher-js": "^5.0.3",
-        "vue-csv-import": "^2.3.9"
+        "vue-csv-import": "^2.3.9",
+        "vue-toasted": "^1.1.27"
     }
 }
