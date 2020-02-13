@@ -1,42 +1,78 @@
-# Bulldesk Full-Stack Challenge
+<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
-Teste para vaga de full-stack developer (Laravel + Vue.js) no [Bulldesk](https://bulldesk.com.br).
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
 
-Você deve criar uma aplicação que importe um arquivo CSV (disponível nesse repositório) com informações de leads. [Crie o banco de dados e tabelas](https://laravel.com/docs/5.6/migrations) baseados neste arquivo. 
+## About Laravel
 
-A aplicação deve ler os cabeçalhos do arquivo e dar uma lista de opções com os campos para serem mapeados para os campos do banco de dados. Os dados devem ser importados em [filas](https://laravel.com/docs/5.6/queues) (driver beanstalkd ou redis), utilizando jobs do Laravel.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-É necessário ter um usuário logado para fazer a importação, ao finalizar a importação esse usuário deve ser [notificado em tempo real](https://laravel.com/docs/5.6/notifications) no frontend.
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Não precisa necessariamente ser um SPA, mas devem ser utilizados [Single File Component do Vue](https://vuejs.org/v2/guide/single-file-components.html).
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-O desafiante deve mostrar bom conhecimento em PHP, no conceito de filas, eventos e também de toda a parte do front.
+## Learning Laravel
 
-## Tecnologias/features que devem ser utilizadas
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-* [Vue.js](https://vuejs.org)
-* [Laravel 5.6](https://laravel.com/docs/5.6/)
-* [Laravel Mix](https://laravel.com/docs/5.6/mix)
-* [Migrations](https://laravel.com/docs/5.6/migrations)
-* [Filas com Beanstalkd ou Redis](https://laravel.com/docs/5.6/queues)
-* [Broadcasting](https://laravel.com/docs/5.6/broadcasting) + [Laravel Echo (com Pusher)](https://laravel.com/docs/5.6/broadcasting#installing-laravel-echo)
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Como participar
+## Laravel Sponsors
 
-Faça o fork deste repositório, crie uma branch com o seu nome.
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-Desenvolva a aplicação e então faça um pull request para este repositório.
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- [UserInsights](https://userinsights.com)
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
+- [User10](https://user10.com)
+- [Soumettre.fr](https://soumettre.fr/)
+- [CodeBrisk](https://codebrisk.com)
+- [1Forge](https://1forge.com)
+- [TECPRESSO](https://tecpresso.co.jp/)
+- [Runtime Converter](http://runtimeconverter.com/)
+- [WebL'Agence](https://weblagence.com/)
+- [Invoice Ninja](https://www.invoiceninja.com)
+- [iMi digital](https://www.imi-digital.de/)
+- [Earthlink](https://www.earthlink.ro/)
+- [Steadfast Collective](https://steadfastcollective.com/)
+- [We Are The Robots Inc.](https://watr.mx/)
+- [Understand.io](https://www.understand.io/)
+- [Abdel Elrafa](https://abdelelrafa.com)
+- [Hyper Host](https://hyper.host)
+- [Appoly](https://www.appoly.co.uk)
+- [OP.GG](https://op.gg)
 
-Na descrição do pull request você pode explicar a lógica que você usou, que dificuldades você teve, o que você fez / não fez e o motivo também, não se sinta pressionado a seguir tudo como foi dito aqui.
+## Contributing
 
-Caso tenha alguma dúvida, abra uma issue.
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Links
+## Code of Conduct
 
-* https://laravel.com/docs/5.6
-* https://laravel.com/docs/5.6/queues
-* https://laravel.com/docs/5.6/migrations
-* https://laravel.com/docs/5.6/notifications
-* https://laravel.com/docs/5.6/broadcasting
-* https://vuejs.org/v2/guide/single-file-components.html
-* https://github.com/gabrielkoerich/guidelines
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
