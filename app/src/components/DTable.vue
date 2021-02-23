@@ -52,7 +52,7 @@ export default {
             sortKey: "",
             result: [],
             fields: {
-                id_lead: 0,
+                lead: 0,
                 nome: "",
                 email: "",
                 cpf_cnpj: "",
@@ -101,7 +101,7 @@ export default {
 
                 vm.result.push(obj);
             });
-            this.fields.id_lead = parseInt(vm.result[1]["#"]);
+            this.fields.lead = parseInt(vm.result[1]["#"]);
             this.fields.nome = vm.result[1]["Nome"];
             this.fields.email = vm.result[1]["E-mail"];
             this.fields.cpf_cnpj = vm.result[1]["CPF / CNPJ"];
