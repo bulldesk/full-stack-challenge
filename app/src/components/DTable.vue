@@ -11,10 +11,10 @@
           />
         </div>
         <div>
-          <v-btn color="primary" @click="listLines">Listar</v-btn>
+          <v-btn v-if="hasFile" color="primary" @click="listLines">Listar</v-btn>
         </div>
         <div>
-          <v-btn color="primary" @click="saveRegister">Salvar Registros</v-btn>
+          <v-btn v-if="hasRegister" color="primary" @click="saveRegister">Salvar Registros</v-btn>
         </div>
       </div>
       <v-layout column>
@@ -40,7 +40,6 @@ export default {
   data() {
     return {
       file: null,
-      hasRegister: false,
       parse_header: [],
       parse_csv: [],
       sortOrders: {},
@@ -173,13 +172,11 @@ export default {
         const obj = Object.fromEntries(this.map);
         this.lines.push(obj);
       });
-
-      this.hasRegister = true;
     },
     saveRegister() {
       let dataRequest = null;
       for (let i = 0; i < 50; i++) {
-        dataRequest = this.lines[i]
+        dataRequest = this.lines[i];
         axios
           .post("http://127.0.0.1:8000/api/lead", dataRequest)
           .then((response) => {
@@ -197,10 +194,21 @@ export default {
               console.log("Error", error.message);
             }
             console.log(error.config);
+            this.lines.length
           });
       }
     },
   },
+  computed: {
+    hasFile() {
+      if(this.result.length > 0) return true
+      else return false
+    },
+    hasRegister() {
+      if(this.lines.length) return true
+      else return false
+    }
+  }
 };
 </script>
 
@@ -211,5 +219,4 @@ export default {
   justify-content: space-between;
   margin-bottom: 4rem;
 }
-
 </style>
