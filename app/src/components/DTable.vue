@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <v-flex>
       <div class="tableBtn">
         <div>
           <input
@@ -17,7 +16,7 @@
           <v-btn v-if="hasRegister" color="primary" @click="saveRegister">Salvar Registros</v-btn>
         </div>
       </div>
-      <v-layout column>
+      <v-layout column  v-if="hasRegister">
         <v-flex md6 style="overflow: auto">
           <v-data-table
             :headers="headers"
@@ -30,7 +29,6 @@
           ></v-data-table>
         </v-flex>
       </v-layout>
-    </v-flex>
   </v-container>
 </template>
 
