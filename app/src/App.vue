@@ -1,28 +1,21 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <DTable />
-  </div>
+  <v-app>
+   <DTable />
+  </v-app>
 </template>
 
 <script>
-import DTable from './components/DTable'
+import DTable from './components/DTable';
 
 export default {
   name: 'App',
-  components: {
-    DTable
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    DTable,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
