@@ -1,32 +1,35 @@
 <template>
   <v-container>
     <v-flex>
-    <div class="tableBtn">
-      <div>
-        <input
-          type="file"
-          id="csv_file"
-          name="csv_file"
-          @change="loadCSV($event)"
-        />
+      <div class="tableBtn">
+        <div>
+          <input
+            type="file"
+            id="csv_file"
+            name="csv_file"
+            @change="loadCSV($event)"
+          />
+        </div>
+        <div>
+          <v-btn color="primary" @click="listLines">Listar</v-btn>
+        </div>
+        <div>
+          <v-btn color="primary" @click="saveRegister">Salvar Registros</v-btn>
+        </div>
       </div>
-      <div>
-        <v-btn color="primary" @click="listLines">Listar</v-btn>
-      </div>
-    </div>
-    <v-layout column>
-      <v-flex md6 style="overflow: auto">
-        <v-data-table
-          :headers="headers"
-          :items="lines"
-          :footer-props="{
-            'items-per-page-options': [100, 200, 500, 1000, -1],
-          }"
-          :items-per-page="100"
-          class="elevation-1"
-        ></v-data-table>
-      </v-flex>
-    </v-layout>
+      <v-layout column>
+        <v-flex md6 style="overflow: auto">
+          <v-data-table
+            :headers="headers"
+            :items="lines"
+            :footer-props="{
+              'items-per-page-options': [10, 50, 100, 500, 1000, -1],
+            }"
+            :items-per-page="100"
+            class="elevation-1"
+          ></v-data-table>
+        </v-flex>
+      </v-layout>
     </v-flex>
   </v-container>
 </template>
@@ -53,7 +56,7 @@ export default {
         },
         { text: "Nome", value: "nome" },
         { text: "E-mail", value: "email" },
-        { text: "CPF/CNPJ (g)", value: "cpf_cnpj" },
+        { text: "CPF/CNPJ", value: "cpf_cnpj" },
         { text: "Empresa", value: "empresa" },
         { text: "Profissão Cargo", value: "profissao_cargo" },
         { text: "Telefone", value: "telefone" },
@@ -117,7 +120,6 @@ export default {
         vm.result.push(obj);
       });
       vm.result.pop();
-      console.log(vm.result);
       return vm.result; // JavaScript object
     },
     loadCSV(e) {
@@ -166,38 +168,37 @@ export default {
           value,
           ""
         );
-        this.fields.url = v["URL\r"];
+        this.fields.url = v["URL\r"].replace("\r", "");
         this.map = new Map(Object.entries(this.fields));
         const obj = Object.fromEntries(this.map);
         this.lines.push(obj);
-        /*         this.map.forEach((value, index) => {
-          console.log(`${index} ${value}`);
-        }); */
       });
 
       this.hasRegister = true;
     },
     saveRegister() {
-      const dataRequest = JSON.stringify(this.fields);
-      console.log(dataRequest);
-      axios
-        .post("http://127.0.0.1:8000/api/lead", dataRequest)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          // Error 😨
-          if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-        });
+      let dataRequest = null;
+      for (let i = 0; i < 50; i++) {
+        dataRequest = this.lines[i]
+        axios
+          .post("http://127.0.0.1:8000/api/lead", dataRequest)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            // Error
+            if (error.response) {
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              console.log(error.request);
+            } else {
+              console.log("Error", error.message);
+            }
+            console.log(error.config);
+          });
+      }
     },
   },
 };
