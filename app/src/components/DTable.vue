@@ -212,7 +212,4 @@ export default {
   margin-bottom: 4rem;
 }
 
-input#file-upload-button {
-  background: #1976d2;
-}
 </style>
